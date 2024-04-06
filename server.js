@@ -26,7 +26,7 @@ app.post('/send-email', (req, res) => {
         from: email,
         to: process.env.EMAIL,
         subject: 'Website Customer Query',
-        text: `You have received a inquiry on your webite. \n \nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        text: `You have received a inquiry on your webite.\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
