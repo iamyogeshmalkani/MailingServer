@@ -1,7 +1,9 @@
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -15,16 +17,16 @@ app.post('/send-email', (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail', // Assuming you're using Hostinger's email service
         auth: {
-            user: 'conan.yogesh@gmail.com', // Replace with your email address
-            pass: 'tmuu tjjm gygc myai', // Replace with your email password
+            user: process.env.FROM_EMAIL, // Replace with your email address
+            pass: process.env.EMAIL_PASSWORD, // Replace with your email password
         },
     });
 
     const mailOptions = {
         from: email,
-        to: "yogeshmalkani28@gmail.com", // Replace with recipient email
+        to: process.env.EMAIL,
         subject: 'Website Contact Form Submission',
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        text: `You have received a inquiry on your webite. \n \nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -41,11 +43,8 @@ app.post('/send-email', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
     console.log(req)
-
-
-    7//    
-    res.send('reponse234')
+    res.send('Running')
 })
 
