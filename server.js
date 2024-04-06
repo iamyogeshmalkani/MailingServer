@@ -2,14 +2,16 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+var cors = require("cors");
 
 dotenv.config();
 
+
 const app = express();
+app.use(cors());
 const PORT = 3000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
 
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
@@ -34,8 +36,7 @@ app.post('/send-email', (req, res) => {
             console.error(error);
             res.status(500).send('Email sending failed');
         } else {
-            console.log('Email sent: ' + info.response);
-            res.send('Email sent successfully');
+            res.send({ message: 'Query Sent!', success: true });
         }
     });
 });
@@ -44,7 +45,6 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 app.get('/', (req, res) => {
-    console.log(req)
     res.send('Running')
 })
 
