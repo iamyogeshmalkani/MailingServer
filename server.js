@@ -25,7 +25,7 @@ app.post('/send-email', (req, res) => {
     const mailOptions = {
         from: email,
         to: process.env.EMAIL,
-        subject: 'Website Contact Form Submission',
+        subject: 'Website Customer Query',
         text: `You have received a inquiry on your webite. \n \nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 
